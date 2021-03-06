@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 
@@ -91,7 +91,7 @@
         <h1 class="h3 mb-2 text-gray-800">Products</h1>
         <p class="mb-4">List of shop products <a target="_blank"
                                                                        href=""></a>.</p>
-        <a th:href = "@{/newform}" class="btn btn-primary btn-sm mb-3"> Add Product </a>
+        <a th:href = "@{/new-product}" class="btn btn-primary btn-sm mb-3"> Add Product </a>
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
@@ -105,6 +105,7 @@
                             <th>Product</th>
                             <th>Description</th>
                             <th>Price</th>
+                            <th>Images</th>
                             <th>Action</th>
                             <!--                                <th>Start date</th>-->
                             <!--                                <th>Salary</th>-->
@@ -115,6 +116,7 @@
                             <th>Product</th>
                             <th>Description</th>
                             <th>Price</th>
+                            <th>Images</th>
                             <th>Action</th>
                             <!--                                <th>Start date</th>-->
                             <!--                                <th>Salary</th>-->
@@ -126,6 +128,7 @@
                             <td th:text="${product.name}"></td>
                             <td th:text="${product.description}"></td>
                             <td th:text="${product.price}"></td>
+                            <td><a th:href="@{/product-page/{id}(id=${product.id})}"><img th:src="${product.image}" width="50px" height="50px"></a></td>
                             <td>
 <!--                                <a th:href="@{/update-form/{id}(id=${product.id})}" class = "btn btn-primary">Update</a>-->
 <!--                                <a th:href="@{/deleteemployee/{id}(id=${product.id})}" class = "btn btn-danger">Delete</a>-->
@@ -171,7 +174,7 @@
             <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="login.html">Logout</a>
+                <a class="btn btn-primary" href="admin-login.html">Logout</a>
             </div>
         </div>
     </div>

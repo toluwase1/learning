@@ -8,11 +8,10 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import java.util.List;
 
-
 @Getter
 @Setter
 @Entity
-public class Admin extends BaseModel{
+public class User extends BaseModel{
     private String firstName;
     private String lastName;
     private String email;

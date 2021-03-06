@@ -33,7 +33,9 @@ private ProductCategoryService productCategoryService;
 
     @GetMapping("/product-page/{id}")
     public String product(@PathVariable Long id, Model model) throws Exception {
-        System.out.println(productService.getProductById(id).getName());
+        Product product = productService.getProductById(id);
+//        System.out.println(product.getName());
+//        System.out.println(product.getImage());
         model.addAttribute("oneProduct", productService.getProductById(id));
         //model.addAttribute("product-category", productService.findAll());
         return "product-page";
@@ -89,6 +91,15 @@ private ProductCategoryService productCategoryService;
         this.productService.deleteProductById(id);
         return "redirect:/all-products";
     }
+    @GetMapping("/shop-page")
+    public String shopPage(Model model, HttpSession session){
+        Object userObject = session.getAttribute("user");
+        if (userObject == null) return "";
+
+        model.addAttribute("allProducts", productService.getAllProducts());
+        return "shop-page";
+    }
+
 
 
 

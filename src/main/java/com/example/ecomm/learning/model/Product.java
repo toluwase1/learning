@@ -13,6 +13,11 @@ public class Product extends BaseModel {
     private String name;
     private Float price;
     private String description;
+    private String image;
     //private int categoryId;
+    @ManyToOne
+    private Admin admin;
 
+    @ManyToOne
+    private User user;
 }

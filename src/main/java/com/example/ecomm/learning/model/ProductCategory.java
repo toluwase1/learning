@@ -17,4 +17,5 @@ public class ProductCategory extends BaseModel{
 
     @OneToMany(fetch = FetchType.LAZY)
     private List<Product> products;
+
 }
