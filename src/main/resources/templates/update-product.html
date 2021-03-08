@@ -19,12 +19,16 @@
 
         <!-- Add hidden form field to handle update-->
         <input type="hidden" th:field="*{id}"/>
-        <label>First name</label>
+        <label>Product Name</label>
         <input type="text" th:field = "*{name}" class ="form-control mb-4 col-4">
-        <label>Last name</label>
+        <label>Product Description</label>
         <input type="text" th:field = "*{description}" class ="form-control mb-4 col-4">
-        <label>Email</label>
+        <label>Product Price</label>
         <input type="text" th:field = "*{price}" class ="form-control mb-4 col-4">
+        <label>Simple Image</label>
+        <input type="text" th:field = "*{image}" class ="form-control mb-4 col-4">
+<!--        <input type="text" th:field = "*{image}"-->
+<!--        placeholder="Product Image" class ="form-control mb-4 col-4">-->
 
         <button type="submit" class="btn btn-info col-2"> Update Product</button>
 

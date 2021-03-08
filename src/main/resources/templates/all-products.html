@@ -92,6 +92,27 @@
         <p class="mb-4">List of shop products <a target="_blank"
                                                                        href=""></a>.</p>
         <a th:href = "@{/new-product}" class="btn btn-primary btn-sm mb-3"> Add Product </a>
+        <a th:href = "@{/logout}" class="btn btn-danger btn-sm mb-3 "> Logout </a>
+
+<!--        <form th:action="@{/developers}" method="post" enctype="multipart/form-data">-->
+<!--            <div>-->
+<!--                Enter New Category <input name="firstName" />-->
+<!--            </div>-->
+
+<!--            <div>-->
+<!--                <input type="submit" value="Create developer" name="button"/>-->
+<!--            </div>-->
+<!--        </form>-->
+<!--        <form action="#" th:action="@{/add-category}" th:object = "${productcategory}" method="POST">-->
+<!--            <input type="text" th:field = "*{productcategory}"-->
+<!--                   placeholder="Product Name" class ="form-control mb-4 col-4">-->
+
+<!--            <button type="submit" class="btn btn-info col-2"> Add Product Category </button>-->
+
+<!--        </form>-->
+
+
+
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
@@ -130,8 +151,8 @@
                             <td th:text="${product.price}"></td>
                             <td><a th:href="@{/product-page/{id}(id=${product.id})}"><img th:src="${product.image}" width="50px" height="50px"></a></td>
                             <td>
-<!--                                <a th:href="@{/update-form/{id}(id=${product.id})}" class = "btn btn-primary">Update</a>-->
-<!--                                <a th:href="@{/deleteemployee/{id}(id=${product.id})}" class = "btn btn-danger">Delete</a>-->
+                                <a th:href="@{/update-product/{id}(id=${product.id})}" class = "btn btn-primary">Update</a>
+                                <a th:href="@{/delete-product/{id}(id=${product.id})}" class = "btn btn-danger">Delete</a>
 <!--                                <a th:href="@{fix-salary/{id}(id=${product.id})}" class = "btn btn-warning">Add Salary</a>-->
                                 <a th:href="@{/product-page/{id}(id=${product.id})}" class = "btn btn-success">View Product</a>
                             </td>

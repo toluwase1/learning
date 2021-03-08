@@ -1,6 +1,8 @@
 package com.example.ecomm.learning.controller;
 
+import com.example.ecomm.learning.model.Admin;
 import com.example.ecomm.learning.model.Product;
+import com.example.ecomm.learning.model.ProductCategory;
 import com.example.ecomm.learning.repository.ProductCategoryRepository;
 import com.example.ecomm.learning.repository.ProductRepository;
 import com.example.ecomm.learning.service.ProductCategoryService;
@@ -11,28 +13,33 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
+
 @org.springframework.stereotype.Controller
 public class Controller {
-private ProductService productService;
-private ProductCategoryService productCategoryService;
+    private ProductService productService;
+    private ProductCategoryService productCategoryService;
 
-@Autowired
+    @Autowired
     public Controller(ProductService productService) {
         this.productService = productService;
         this.productCategoryService = productCategoryService;
     }
 
+
+
     @GetMapping("/all-products")
-    public String allProduct(Model model){
-//        Object adminObject = session.getAttribute("admin");
-//        if (adminObject == null) return "redirect:/auth/login";
+    public String allProduct(Model model, HttpSession session) {
+        Object adminObject = session.getAttribute("admin");
+        if (adminObject == null) return "redirect:/admin/login";
 
         model.addAttribute("allProducts", productService.getAllProducts());
         return "all-products";
     }
 
     @GetMapping("/product-page/{id}")
-    public String product(@PathVariable Long id, Model model) throws Exception {
+    public String product(@PathVariable Long id, Model model, HttpSession session) throws Exception {
+        Object adminObject = session.getAttribute("admin");
+        if (adminObject == null) return "redirect:/admin/login";
         Product product = productService.getProductById(id);
 //        System.out.println(product.getName());
 //        System.out.println(product.getImage());
@@ -42,9 +49,9 @@ private ProductCategoryService productCategoryService;
     }
 
     @GetMapping("/new-product")
-    public String newProduct (Model model){
-        //Object adminObject = session.getAttribute("admin");
-        //if (adminObject == null) return "redirect:/auth/login";
+    public String newProduct(Model model, HttpSession session) {
+        Object adminObject = session.getAttribute("admin");
+        if (adminObject == null) return "redirect:/admin/login";
 
         //create model attribute to bind form data
         Product product = new Product();
@@ -53,9 +60,7 @@ private ProductCategoryService productCategoryService;
     }
 
     @PostMapping("/save-product")
-    public String saveProductMethod(@ModelAttribute("product") Product product){
-//        Object adminObject = session.getAttribute("admin");
-//        if (adminObject == null) return "redirect:/auth/login";
+    public String saveProductMethod(@ModelAttribute("product") Product product, HttpSession session) {
 
         productService.addProduct(product);
         return "redirect:/all-products";
@@ -63,19 +68,19 @@ private ProductCategoryService productCategoryService;
 
 
     @GetMapping("/update-product/{id}")
-    public String updateProduct(@PathVariable( value = "id") long id, Model model) throws Exception {
-//        Object adminObject = session.getAttribute("admin");
-//        if (adminObject == null) return "redirect:/auth/login";
-//        //set employee as a model attribute to pre-populate the form
+    public String updateProduct(@PathVariable(value = "id") long id, Model model, HttpSession session) throws Exception {
+        Object adminObject = session.getAttribute("admin");
+        if (adminObject == null) return "redirect:/admin/login";
+//        //set product as a model attribute to pre-populate the form
         Product product = productService.getProductById(id);
         model.addAttribute("product", product);
         return "update-product";
     }
 
     @PostMapping("/update-product/{id}")
-    public String updateProduct(@ModelAttribute("product") Product product, @PathVariable( value = "id") long id){
-//        Object adminObject = session.getAttribute("admin");
-//        if (adminObject == null) return "redirect:/auth/login";
+    public String updateProduct(@ModelAttribute("product") Product product, @PathVariable(value = "id") long id, HttpSession session) {
+        Object adminObject = session.getAttribute("admin");
+        if (adminObject == null) return "redirect:/admin/login";
 
         //save product to database
         productService.updateProduct(product, id);
@@ -83,28 +88,60 @@ private ProductCategoryService productCategoryService;
     }
 
     @GetMapping("/delete-product/{id}")
-    public String deleteMethod(@PathVariable ( value = "id") long id, Model model){
-//        Object adminObject = session.getAttribute("admin");
-//        if (adminObject == null) return "redirect:/auth/login";
-
+    public String deleteMethod(@PathVariable(value = "id") long id, Model model, HttpSession session) {
+        Object adminObject = session.getAttribute("admin");
+        if (adminObject == null) return "redirect:/admin/login";
         // call delete employee method
         this.productService.deleteProductById(id);
+        System.out.println("I GOT DELE");
         return "redirect:/all-products";
     }
-    @GetMapping("/shop-page")
-    public String shopPage(Model model, HttpSession session){
-        Object userObject = session.getAttribute("user");
-        if (userObject == null) return "";
 
+    @GetMapping("/shop-page")
+    public String shopPage(Model model, HttpSession session) {
+//        Object userObject = session.getAttribute("user");
+//        if (userObject == null) return "";
         model.addAttribute("allProducts", productService.getAllProducts());
         return "shop-page";
     }
 
 
+    @PostMapping("/add-category")
+    public String addCategory(Model model, HttpSession session, Admin admin, Long id) {
+        Object userObject = session.getAttribute("admin");
+        if (userObject == null) return "redirect:/admin/login";
+        ProductCategory productCategory = new ProductCategory();
 
 
 
+
+//        Skill skill = skillRepository.findOne(skillId);
+//        Developer developer = repository.findOne(id);
 //
+//        if (developer != null) {
+//            if (!developer.hasSkill(skill)) {
+//                developer.getSkills().add(skill);
+//            }
+//            repository.save(developer);
+//            model.addAttribute("developer", repository.findOne(id));
+//            model.addAttribute("skills", skillRepository.findAll());
+//            return "redirect:/developer/" + developer.getId();
+//        }
+//
+//        model.addAttribute("developers", repository.findAll());
+//        return "redirect:/developers";
+//
+
+
+        model.addAttribute("allProducts", productService.getAllProducts());
+        return "redirect:/all-products";
+    }
+
+
+
+
+
+    //
 //    @RequestMapping(value="/developers",method=RequestMethod.GET)
 //    public String developersList(Model model) {
 //        model.addAttribute("developers", repository.findAll());
