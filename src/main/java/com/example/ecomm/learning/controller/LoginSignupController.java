@@ -37,6 +37,7 @@ public class LoginSignupController {
         model.addAttribute("admin", new Admin());
         model.addAttribute("user", new User());
         model.addAttribute("invalid", null);
+        System.out.println("i got my login page");
         return "admin-login";
     }
 
@@ -52,11 +53,12 @@ public class LoginSignupController {
             model.addAttribute("errorMessage", "Invalid Username/Password.");/** error message for wrong email/password input
              */
             System.out.println("Login working");
-            return "admin-login";
+            return "redirect:/all-products";
 
 
         } else if(onlyAdmin != null) {
             session.setAttribute("admin", onlyAdmin);
+            System.out.println("Post Login working");
             return "redirect:/all-products";
         }else{
             model.addAttribute("name", onlyUser.getFirstName());
